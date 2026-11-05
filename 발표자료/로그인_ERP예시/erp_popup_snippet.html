@@ -1,0 +1,70 @@
+<!-- 로그인 화면용: 희미한 링크 + ERP 화면 팝업 (단독 미리보기도 가능) -->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>로그인 — ERP 예시 팝업 미리보기</title>
+<style>
+  body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+         background:#F4F6FA; font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif; color:#333; }
+  .login-box { width:320px; background:#fff; border-radius:16px; padding:32px 28px 20px;
+               box-shadow:0 4px 18px rgba(0,0,0,.06); text-align:center; }
+  .login-box input { width:100%; box-sizing:border-box; margin:6px 0; padding:10px 12px;
+                     border:1px solid #E1E5EB; border-radius:8px; font-size:14px; }
+  .login-box button.login { width:100%; margin-top:10px; padding:10px; border:0; border-radius:8px;
+                            background:#E9EDF2; color:#333; font-size:14px; cursor:pointer; }
+
+  /* ===== 여기부터 복사해서 로그인 화면에 붙이면 됩니다 ===== */
+  .erp-sample-link { display:inline-block; margin-top:18px; font-size:12px; color:#B8BFC9;
+                     text-decoration:none; cursor:pointer; }
+  .erp-sample-link:hover { color:#8B95A1; text-decoration:underline; }
+  .erp-sample-overlay { position:fixed; inset:0; background:rgba(15,23,42,.55); display:none;
+                        align-items:center; justify-content:center; z-index:9999; padding:16px; }
+  .erp-sample-overlay.open { display:flex; }
+  .erp-sample-panel { background:#fff; border-radius:12px; max-width:min(1200px,96vw);
+                      max-height:92vh; overflow:auto; box-shadow:0 8px 30px rgba(0,0,0,.25); }
+  .erp-sample-head { position:sticky; top:0; display:flex; justify-content:space-between; align-items:center;
+                     padding:10px 14px; background:#fff; border-bottom:1px solid #EEF1F4;
+                     font-size:13px; color:#6B7684; }
+  .erp-sample-close { border:0; background:#F2F4F6; color:#6B7684; border-radius:6px;
+                      padding:4px 10px; font-size:13px; cursor:pointer; }
+  .erp-sample-panel img { display:block; width:100%; height:auto; }
+  /* ===== 복사 끝 ===== */
+</style>
+</head>
+<body>
+  <div class="login-box">
+    <div style="font-weight:bold;margin-bottom:14px">물류배차시스템</div>
+    <input placeholder="아이디">
+    <input type="password" placeholder="비밀번호">
+    <button class="login">로그인</button>
+
+    <!-- ===== 여기부터 복사 (로그인 버튼 아래) ===== -->
+    <a class="erp-sample-link" id="erpSampleLink">ERP 배차등록 화면 보기</a>
+    <div class="erp-sample-overlay" id="erpSampleOverlay" role="dialog" aria-label="ERP 배차등록 화면">
+      <div class="erp-sample-panel">
+        <div class="erp-sample-head">
+          <span>ERP 배차등록 화면</span>
+          <button class="erp-sample-close" id="erpSampleClose">닫기</button>
+        </div>
+        <img src="/화면/erp_배차등록_예시.png" alt="ERP 배차등록 화면" loading="lazy">
+      </div>
+    </div>
+    <script>
+      (function () {
+        var link = document.getElementById('erpSampleLink');
+        var ov = document.getElementById('erpSampleOverlay');
+        var close = document.getElementById('erpSampleClose');
+        function open(e) { if (e) e.preventDefault(); ov.classList.add('open'); }
+        function hide() { ov.classList.remove('open'); }
+        link.addEventListener('click', open);
+        close.addEventListener('click', hide);
+        ov.addEventListener('click', function (e) { if (e.target === ov) hide(); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+      })();
+    </script>
+    <!-- ===== 복사 끝 ===== -->
+  </div>
+</body>
+</html>
